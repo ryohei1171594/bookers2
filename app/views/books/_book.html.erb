@@ -1,0 +1,42 @@
+<% @books.each do |book| %>
+<p id="notice"></p>
+<h2>User information</h2>
+<div class="col-lg-4"></div>
+  <p>投稿ユーザー画像：<%= image_tag current_user.get_profile_image(100,100) %></p>
+<h2>New book</h2>
+  <%= form_with model: @book do |f| %>
+    <h4>Title</h4>
+      <%= f.text_field :title %>
+    <h4>Opinion</h4>
+      <%= f.text_area :body %>
+<%= f.submit 'Create Book', class: "btn btn-secondary" %>
+<div class="container">
+ <div class="row">
+  <div class="col-lg-4"> 
+<table class="table table-striped"></table>
+  </div>
+ </div>
+</div>
+  <% end %>
+<h2>Book detail</h2>
+<% @books.each do |book| %>
+
+  <p>Title</p>
+  <div class="col-lg-4"></div>
+  <span><%= book.title %></span>
+  <p>Opinion</p>
+  <span><%= book.body %></span>
+<% end %>
+
+<% @books.each do |book| %>
+<div>
+  <%= link_to book_path(book.id) do %>
+    <%= image_tag book.get_image %>
+  <% end %>
+  <p>投稿ユーザー画像：<%= image_tag book.user.get_profile_image(100,100) %></p>
+  <p>ショップ名：<%= book.book_name %></p>
+  <p>説明：<%= book.caption %></p>
+  <p>ユーザーネーム：<%= book.user.name %></p>
+</div>
+<% end %>
+<%= render 'books/book', books: @books %>
